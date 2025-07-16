@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  # 1. FastAPI BFF (main app server)
+  bff:
+    build: ./bff
+    depends_on:
+      - db
+      - redis
+      - minio
+      - identity
+      - email
+    environment:
+      - DATABASE_URL=mysql://mgs_user:pa55word@db:3306/my_guitar_shop
+      - REDIS_URL=redis://redis:6379
+      - MINIO_URL=http://minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - IDENTITY_SERVICE_URL=http://identity:8000
+      - EMAIL_HOST=email
+    ports:
+      - "8000"
+    networks:
+      - cloudnet
+
+  # 2. Frontend (static web)
+  frontend:
+    build: ./frontend
+    depends_on:
+      - bff
+    networks:
+      - cloudnet
+    ports:
+      - "8080:80"
+
+  # 3. MySQL (relational database)
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: my_guitar_shop
+      MYSQL_USER: mgs_user
+      MYSQL_PASSWORD: pa55word
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./createguitar.sql:/docker-entrypoint-initdb.d/createguitar.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - cloudnet
+
+  # 4. Load Balancer (HAProxy)
+  lb:
+    image: haproxy:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    depends_on:
+      - bff
+    networks:
+      - cloudnet
+
+  # 5. Redis (shared memory)
+  redis:
+    image: redis:7
+    networks:
+      - cloudnet
+
+  # 6. Postfix (email server)
+  email:
+    build: ./postfix
+    networks:
+      - cloudnet
+
+  # 7. MinIO (shared file system)
+  minio:
+    image: minio/minio
+    command: server /data
+    ports:
+      - "9000:9000"
+    environment:
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    volumes:
+      - miniodata:/data
+    networks:
+      - cloudnet
+
+  # 8. Admin Backend (FastAPI)
+  admin:
+    build: ./admin
+    depends_on:
+      - db
+      - identity
+    environment:
+      - DATABASE_URL=mysql://mgs_user:pa55word@db:3306/my_guitar_shop
+    networks:
+      - cloudnet
+
+  # 9. Identity Service (FastAPI for cookie/session verification)
+  identity:
+    build: ./identity
+    networks:
+      - cloudnet
+
+  # 10. Python CLI Driver
+  cli:
+    build: ./cli
+    depends_on:
+      - bff
+    networks:
+      - cloudnet
+    entrypoint: ["python", "main.py"]
+    restart: "no"
+
+networks:
+  cloudnet:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  miniodata:

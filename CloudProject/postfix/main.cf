@@ -1,0 +1,7 @@
+myhostname = guitarshop.local
+myorigin = $mydomain
+mydestination = $myhostname, localhost.$mydomain, localhost
+relayhost = 
+inet_interfaces = all
+inet_protocols = all
+smtpd_banner = $myhostname ESMTP

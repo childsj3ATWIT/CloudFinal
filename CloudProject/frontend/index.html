@@ -1,12 +1,27 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guitar Shop</title>
-    <link rel="stylesheet" href="styles.css">
-
+  <title>Guitar Shop</title>
+</head>
 <body>
-    <h1>Welcome to our guitar shop.</h1>
-    <p>Explore our collection of guitars and find your perfect match!</p>
+  <h1>Guitar Shop</h1>
+  <button onclick="loadProducts()">Load Products</button>
+  <ul id="products"></ul>
+
+  <script>
+    function loadProducts() {
+      fetch("http://bff:8000/products")
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById("products");
+          list.innerHTML = "";
+          data.forEach(p => {
+            const li = document.createElement("li");
+            li.textContent = p.product_name + " - $" + p.list_price;
+            list.appendChild(li);
+          });
+        });
+    }
+  </script>
 </body>
 </html>

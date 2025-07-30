@@ -1,7 +1,10 @@
 myhostname = guitarshop.local
-myorigin = $mydomain
-mydestination = $myhostname, localhost.$mydomain, localhost
-relayhost = 
+myorigin = /etc/mailname
+mydestination = $myhostname, localhost.localdomain, localhost
+relayhost =
 inet_interfaces = all
-inet_protocols = all
+inet_protocols = ipv4
 smtpd_banner = $myhostname ESMTP
+biff = no
+append_dot_mydomain = no
+readme_directory = no

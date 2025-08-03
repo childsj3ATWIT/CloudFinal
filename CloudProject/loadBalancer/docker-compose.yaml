@@ -1,0 +1,36 @@
+services:
+  app1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: loadbalancerapp:latest
+    networks:
+      - loadbalancer-net
+    ports:
+      - "9600:9600"
+    environment:
+      APP_NAME: App 1
+  app2:
+    depends_on:
+      - app1
+    image: loadbalancerapp:latest
+    networks:
+      - loadbalancer-net
+    ports:
+      - "9601:9600"
+    environment:
+      APP_NAME: App 2
+  nginx:
+    image: nginx:latest
+    networks:
+      - loadbalancer-net
+    ports:
+      - "8080:80"
+    depends_on:
+      - app1
+      - app2
+    volumes:
+      - ../nginx:/etc/nginx/conf.d
+networks:
+  loadbalancer-net:
+    driver: bridge

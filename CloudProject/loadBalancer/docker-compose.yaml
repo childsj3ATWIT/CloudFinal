@@ -29,6 +29,7 @@ services:
     depends_on:
       - app1
       - app2
+      #still need to add the rest of the services
     volumes:
       - ../nginx:/etc/nginx/conf.d
 networks:

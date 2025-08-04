@@ -68,5 +68,5 @@ The CLI service runs automatically on startup or can be run manually:
 It tests the BFF, login, Redis, MinIO, admin add, and email endpoints.
 
 ### Step 4: Shut down
-docker compose down -v
+- docker compose down -v
 

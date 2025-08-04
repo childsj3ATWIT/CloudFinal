@@ -3,8 +3,7 @@ Cloud Computing Final Project 2025 <br/>
 
 ## INTRODUCTION
 This project simulates a local cloud environment for a small online guitar shop. It models a modular microservices architecture using Docker Compose to deploy 10 independently managed containers that together provide core cloud-based features such as load balancing, database access, email communication, shared memory caching, file storage, and service authentication.
-
-It was built as a final project for a course in Cloud Computing and demonstrates how to deploy and connect services typically found in real-world cloud platforms — all running locally.
+It was built to demonstrate how to deploy and connect services typically found in real-world cloud platforms, all running locally.
 
 ## DESCRIPTION
 The system is built around a central Backend-for-Frontend (BFF) service written in FastAPI, which exposes RESTful endpoints to a static HTML frontend and a Python CLI client. This BFF connects to multiple cloud-native components, including:
@@ -18,7 +17,7 @@ The system is built around a central Backend-for-Frontend (BFF) service written 
 - Load balancer (Nginx)
 - Static frontend (Nginx)
 - CLI driver (Python)
-- 
+
 ## DESIGN
 The architecture uses a service-oriented, layered design:
 

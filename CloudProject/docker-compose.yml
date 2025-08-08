@@ -76,16 +76,19 @@ services:
   # 7. MinIO (shared file system)
   minio:
     image: minio/minio
-    command: server /data
     ports:
       - "9000:9000"
+      - "9001:9001"   # Web UI port
     environment:
-      - MINIO_ACCESS_KEY=minioadmin
-      - MINIO_SECRET_KEY=minioadmin
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    command: server /data --console-address ":9001"
     volumes:
       - miniodata:/data
+
     networks:
       - cloudnet
+
 
   # 8. Admin Backend (FastAPI)
   admin:

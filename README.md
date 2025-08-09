@@ -14,6 +14,7 @@ The system is built around a central Backend-for-Frontend (BFF) service written 
 - Email server (Postfix)
 - Identity provider (FastAPI microservice)
 - Admin panel backend (FastAPI microservice)
+- BFF
 - Load balancer (Nginx)
 - Static frontend (Nginx)
 - CLI driver (Python)

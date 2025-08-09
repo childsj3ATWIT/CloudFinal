@@ -38,12 +38,13 @@ All services run on a shared Docker bridge network, and services use internal DN
 ## HOW TO RUN
 
 ### Prerequisites:
-- Docker and Docker Compose installed
+- Docker Desktop installed
 
 ### Step 1: Clone the repository
 - Download the project 
 
 ### Step 2: Build and launch all services
+- Change Directory into the CloudProject folder
 - docker compose up --build
 
 This launches:

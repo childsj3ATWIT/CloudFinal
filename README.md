@@ -11,7 +11,7 @@ The system is built around a central Backend-for-Frontend (BFF) service written 
 - A relational database (MySQL)
 - Shared memory cache (Redis)
 - Shared file system (MinIO)
-- Email server (Postfix)
+- Email server (Postfix/Mailhog)
 - Identity provider (FastAPI microservice)
 - Admin panel backend (FastAPI microservice)
 - BFF
@@ -28,7 +28,7 @@ The architecture uses a service-oriented, layered design:
 - The **Admin backend** allows management of products.
 - The **Identity service** verifies session tokens issued by the BFF and stores them in Redis.
 - The **Redis instance** supports fast in-memory access to session data and cart caching.
-- **Postfix** handles outbound email.
+- **Postfix/Mailhog** handles outbound email.
 - **MinIO** provides shared file storage.
 - **Nginx Load Balancer** load balances frontend/API traffic (configurable).
 - The **CLI** container allows service access through Python code.

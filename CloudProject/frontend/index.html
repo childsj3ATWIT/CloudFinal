@@ -12,15 +12,24 @@
   <script>
     function loadProducts() {
       fetch("http://localhost:8000/products")
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+           throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          return res.json();
+        })
         .then(data => {
           const list = document.getElementById("products");
           list.innerHTML = "";
           data.forEach(p => {
             const li = document.createElement("li");
-            li.textContent = p.product_name + " - $" + p.list_price;
+            li.textContent = `${p.product_name} - $${p.list_price}`;
             list.appendChild(li);
           });
+        })
+        .catch(err => {
+          console.error("Failed to load products:", err);
+          alert("Could not load products. Check console for details.");
         });
     }
   </script>

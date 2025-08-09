@@ -1,6 +1,30 @@
 import requests
 import smtplib
 
+# Identity service test function
+def test_identity_service():
+    base_url = "http://localhost:8000"
+
+    # Login with form data
+    login_resp = requests.post(f"{base_url}/login", data={
+        "username": "admin",
+        "password": "adminpass"
+    })
+
+    if login_resp.status_code == 200:
+        print("Login successful:", login_resp.json())
+        cookies = login_resp.cookies
+
+        # Use the cookie to call read_cookie
+        cookie_resp = requests.get(f"{base_url}/read_cookie", cookies=cookies)
+        print("Read cookie response:", cookie_resp.json())
+
+        # Logout
+        logout_resp = requests.post(f"{base_url}/logout", cookies=cookies)
+        print("Logout response:", logout_resp.json())
+    else:
+        print("Login failed:", login_resp.text)
+
 def send_test_email():
     FROM = "test@guitarshop.local"
     TO = "root@guitarshop.local"
@@ -25,7 +49,8 @@ services = [
     'send_test_email',
     'minIO',
     'admin',
-    'identity_service'
+    'identity_service',
+    'identity_test'
 ]
 
 
@@ -85,6 +110,8 @@ def maindriver():
             elif service == 'identity_service':
                 r = requests.get("http://localhost/login", cookies={"session": "dummy"})
                 print(r.json())
+            elif service == 'identity_test':
+                test_identity_service()
         except Exception as e:
             print("Error connecting to service:", e)
 

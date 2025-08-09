@@ -26,9 +26,11 @@ async def get_headers(request: Request):
     }
 
 @app.post("/login")
-async def login(response: Response, username=USERNAME):
-    response.set_cookie(key="username", value="username", secure=True, httponly=True)#, samesite="Lax")
-    return {"message": "Cookie set"}
+async def login(response: Response, username: str = Form(...), password: str = Form(...)):
+    if USERS.get(username) == password:
+        response.set_cookie(key="username", value=username, httponly=True, secure=True)
+        return {"message": f"Logged in as {username}"}
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
 #@app.post("/login")
 #async def login(response: Response, username: str = Form(...), password: str = Form(...)):

@@ -19,7 +19,7 @@ services:
       - IDENTITY_SERVICE_URL=http://identity:8000
       - EMAIL_HOST=email
     ports:
-      - "8000"
+      - "8000:8000"
     networks:
       - cloudnet
 

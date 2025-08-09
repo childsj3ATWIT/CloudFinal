@@ -44,7 +44,7 @@ All services run on a shared Docker bridge network, and services use internal DN
 - Download the project 
 
 ### Step 2: Build and launch all services
-- Change Directory into the CloudProject folder
+- Change Directory into the CloudProject folder using "cd CloudProject/"
 - docker compose up --build
 
 This launches:

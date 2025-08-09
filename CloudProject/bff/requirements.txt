@@ -6,3 +6,4 @@ jinja2
 redis
 minio
 boto3
+Corsmiddleware

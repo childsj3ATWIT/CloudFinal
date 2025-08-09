@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, UploadFile, File, Form, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import mysql.connector
 import redis
@@ -9,6 +10,20 @@ from botocore.client import Config
 import os
 
 app = FastAPI()
+
+# CORS configuration
+# Allow requests from the frontend running on localhost:8080
+origins = [
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # MySQL connection
 def get_db():

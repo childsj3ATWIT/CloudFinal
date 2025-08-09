@@ -1,0 +1,9 @@
+boto3
+flask
+pydantic
+fastapi
+redis
+uvicorn
+jinja2
+mysql-connector-python
+requests

@@ -72,6 +72,17 @@ services:
     build: ./postfix
     networks:
       - cloudnet
+    ports:
+      - "25:25"
+
+  #6.5 email(mailhog for email testing)
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"   # SMTP port for Postfix to send to
+      - "8025:8025"   # Web UI port
+    networks:
+      - cloudnet
 
   # 7. MinIO (shared file system)
   minio:
@@ -114,9 +125,10 @@ services:
     build: ./cli
     depends_on:
       - bff
+      - identity
     networks:
       - cloudnet
-    entrypoint: ["python", "main.py"]
+    entrypoint: ["python", "cli.py"]
     restart: "no"
 
 networks:

@@ -1,10 +1,18 @@
-myhostname = guitarshop.local
-myorigin = /etc/mailname
-mydestination = $myhostname, localhost.localdomain, localhost
-relayhost =
+myorigin = guitarshop.local
+mydestination = localhost.localdomain, localhost
+relayhost = [mailhog]:1025
 inet_interfaces = all
 inet_protocols = ipv4
 smtpd_banner = $myhostname ESMTP
 biff = no
 append_dot_mydomain = no
 readme_directory = no
+
+local_recipient_maps =
+
+alias_maps = hash:/etc/postfix/aliases
+virtual_alias_domains = guitarshop.local
+virtual_alias_maps = regexp:/etc/postfix/virtual
+
+smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination

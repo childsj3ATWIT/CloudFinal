@@ -11,6 +11,14 @@ def get_db():
         database="my_guitar_shop"
     )
 
+@app.get("/admin")
+def read_root():
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SHOW DATABASES")
+    databases = cursor.fetchall()
+
+
 @app.get("/admin/products")
 def all_products():
     db = get_db()

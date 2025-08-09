@@ -1,5 +1,6 @@
 # CloudFinal
 Cloud Computing Final Project 2025 <br/>
+Joseph Childs & Cole Fitzgerald
 
 ## INTRODUCTION
 This project simulates a local cloud environment for a small online guitar shop. It models a modular microservices architecture using Docker Compose to deploy 10 independently managed containers that together provide core cloud-based features such as load balancing, database access, email communication, shared memory caching, file storage, and service authentication.

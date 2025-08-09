@@ -98,6 +98,8 @@ services:
       - identity
     environment:
       - DATABASE_URL=mysql://mgs_user:pa55word@db:3306/my_guitar_shop
+    ports:
+      - "8001:8000"
     networks:
       - cloudnet
 

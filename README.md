@@ -64,14 +64,14 @@ This launches:
 Service	URL
 - Frontend	http://localhost:8080
 - BFF API	http://localhost:8000/products
-- MinIO	http://localhost:9000 (minioadmin/minioadmin)
+- MinIO	http://localhost:9000 (minioadmin/minioadmin123)
 - Admin API	http://localhost:8001/admin/products
 
 The CLI service runs automatically on startup or can be run manually:
 - Change Directory to cli folder using "cd cli/"
 - python cli.py or python3 cli.py
 
-It tests the BFF, login, Redis, MinIO, admin add, and email endpoints.
+It allows you to select from all 10 of the services and see their operation.
 
 ### Step 4: Shut down
 - docker compose down -v

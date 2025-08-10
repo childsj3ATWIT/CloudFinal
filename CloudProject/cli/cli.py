@@ -94,7 +94,9 @@ def maindriver():
             elif service == 'load_balancer':
                 print("Access via http://localhost")
             elif service == 'redis':
-                print("Redis available on port 6379.")
+                print("Entering redis container, type 'exit' to exit, try 'redis-cli get mykey', redis-cli set mykey <example>")
+                import subprocess
+                subprocess.call(["docker", "exec", "-i", "cloudproject-redis-1", "sh"])
             elif service == 'email':
                 print("Email server ready.")
             elif service == 'send_test_email':

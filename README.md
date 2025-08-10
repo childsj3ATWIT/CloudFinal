@@ -46,7 +46,7 @@ All services run on a shared Docker bridge network, and services use internal DN
 
 ### Step 2: Build and launch all services
 - Change Directory into the CloudProject folder using "cd CloudProject/"
-- pip install -r requirements.txt
+- pip install -r requirements.txt or pip3 install -r requirements.txt
 - docker compose up --build
 
 This launches:
@@ -62,13 +62,15 @@ This launches:
 
 ### Step 3: Access the services
 Service	URL
-Frontend	http://localhost:8080
-BFF API	http://localhost:8000/products
-MinIO	http://localhost:9000 (minioadmin/minioadmin)
-Admin API	http://localhost:8001/admin/products
+- Frontend	http://localhost:8080
+- BFF API	http://localhost:8000/products
+- MinIO	http://localhost:9000 (minioadmin/minioadmin)
+- Admin API	http://localhost:8001/admin/products
 
 The CLI service runs automatically on startup or can be run manually:
-- docker compose run cli
+- Change Directory to cli folder using "cd cli/"
+- python cli.py or python3 cli.py
+
 It tests the BFF, login, Redis, MinIO, admin add, and email endpoints.
 
 ### Step 4: Shut down

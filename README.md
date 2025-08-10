@@ -16,7 +16,7 @@ The system is built around a central Backend-for-Frontend (BFF) service written 
 - Identity provider (FastAPI microservice)
 - Admin panel backend (FastAPI microservice)
 - BFF
-- Load balancer (Nginx)
+- Load balancer (haproxy)
 - Static frontend (Nginx)
 - CLI driver (Python)
 
@@ -31,7 +31,7 @@ The architecture uses a service-oriented, layered design:
 - The **Redis instance** supports fast in-memory access to session data and cart caching.
 - **Postfix/Mailhog** handles outbound email.
 - **MinIO** provides shared file storage.
-- **Nginx Load Balancer** load balances frontend/API traffic (configurable).
+- **Load Balancer** load balances frontend/API traffic (configurable).
 - The **CLI** container allows service access through Python code.
 
 All services run on a shared Docker bridge network, and services use internal DNS (`bff`, `db`, `email`, etc.) to resolve hostnames. External-facing services (e.g., BFF, frontend, MinIO) expose ports on the host for browser or developer access.
@@ -42,7 +42,7 @@ All services run on a shared Docker bridge network, and services use internal DN
 - Docker Desktop installed
 
 ### Step 1: Clone the repository
-- Download the project/clone project
+- Download the project/clone the project
 
 ### Step 2: Build and launch all services
 - Change Directory into the CloudProject folder using "cd CloudProject/"
@@ -50,7 +50,8 @@ All services run on a shared Docker bridge network, and services use internal DN
 - docker compose up --build
 
 This launches:
-- FasstAPI BFF and admin backends
+- FasstAPI BFF
+- Admin backend
 - MySQL database with your guitar shop schema
 - Redis
 - Nginx frontend
